@@ -23,8 +23,7 @@ export default class PokemonCardV2 extends React.Component{
     render()
     {
         const name = _.get(this.props, 'pokemon.name', '');
-        const { pokemon } = this.state;
-        const { types, sprites, id } = pokemon;
+        const { types, sprites, id } = this.state.pokemon;
         const official_artwork = _.get(sprites, 'other.official-artwork.front_default', '');
         const newTypeList = _.map(types, (type) => <span key={type.type.name} className="type" style={{ backgroundColor: getTypeColor(type.type.name) }}>{type.type.name}</span>);
         

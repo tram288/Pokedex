@@ -1,13 +1,27 @@
-function PokemonCard(props) {
-    const {pokemons} = props;
-    // console.log(pokemons);
+import React from 'react';
+import _ from 'lodash'
 
-  return (
-    <div className="Pokedex">
-      <h1>{pokemons.name}</h1>
-      <h2>{pokemons.types[0].type.name}</h2>
-    </div>
-  );
-}
+export default class PokemonCardV2 extends React.Component{
 
-export default PokemonCard;
+    constructor(props){
+        super(props)
+        console.log(props)
+        this.state = {
+            name: props.name,
+            types: props.types
+        }
+    }
+    render()
+    {
+        const name = _.get(this.props, 'pokemon.name', '');
+        const types = _.get(this.props, 'pokemon.types');
+        const typeList = _.map(types, (typeInfo) => <h2>{typeInfo.type.name}</h2>);
+
+        return(
+        <div className="Pokedex">
+        <h1>{name}</h1>
+        {typeList}
+      </div>
+      )
+    }
+  }

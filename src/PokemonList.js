@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PokemonCard from './PokemonCard';
 import PokemonCardV2 from './PokemonCardV2';
 import _ from 'lodash';
 
@@ -7,7 +8,7 @@ export default class PokemonList extends React.Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      pokemon: null,
+      pokemon: {},
       pokemons: [],
     };
   }
@@ -24,15 +25,15 @@ export default class PokemonList extends React.Component {
   }
 
   render() {
-    const { pokemon, pokemons } = this.state;
-    if (pokemon === null) {
-      return <div>Nothing!</div>;
-    }
+    const { pokemons } = this.state;
+    const pokemon = _.get(this.state, 'pokemon');
+
     return (
       <>
-        <div className='PokemonList'>
+        <PokemonCard key={_.get(pokemon, 'name')} pokemon={pokemon} />
+        {/* <div className='PokemonList'>
           {_.map(pokemons, pokemon => <PokemonCardV2 key={pokemon.name} pokemon={pokemon} />)}
-        </div>
+        </div> */}
       </>
     );
   }
