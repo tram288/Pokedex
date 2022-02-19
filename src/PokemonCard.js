@@ -5,7 +5,6 @@ export default class PokemonCardV2 extends React.Component{
 
     constructor(props){
         super(props)
-        console.log(props)
         this.state = {
             name: props.name,
             types: props.types
