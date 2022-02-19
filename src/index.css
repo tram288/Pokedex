@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.type {
+  padding: 10px;
+  border-radius: 10px;
+  width: auto;
+  text-align: center;
+  /* font-weight: bolder; */
+  font-size: 1.5em;
+  color: #fff;
+}
+
+.PokemonCard {
+  background-color: #F2F2F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
