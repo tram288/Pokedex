@@ -1,37 +1,38 @@
 import React from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import PokemonCardV2 from './PokemonCardV2';
 
 export default class PokemonList extends React.Component {
 
-  constructor(prop){
+  constructor(prop) {
     super(prop);
     this.state = {
-      pokemon: null
+      pokemons: {}
     }
   }
 
-  componentDidMount() {
-    axios.get(`https://pokeapi.co/api/v2/pokemon/bulbasaur`)
+  componentDidMount = async () => {
+    await axios.get(`https://pokeapi.co/api/v2/pokemon`)
       .then(res => {
-        const pokemon = res.data;
-       // console.log(res.data);
-        this.setState({ pokemon: pokemon });
+        const pokemons = res.data.results;
+        this.setState({ pokemons: pokemons });
       })
   }
 
   render() {
-    if (this.state.pokemon === null) {
+    const { pokemons } = this.state;
+    if (pokemons === null) {
       return <div>Nothing!</div>
     }
     return (
-      <ul>
+      <div>
         {
-                <div className="PokemonList">
-                <PokemonCardV2 name = {this.state.pokemon.name} types = {this.state.pokemon.types}/>
-            </div>
+          <div className="PokemonList">
+            {_.map(pokemons, pokemon => <PokemonCardV2 key={pokemon.name} pokemon={pokemon} />)}
+          </div>
         }
-      </ul>
+      </div>
     )
   }
 }
