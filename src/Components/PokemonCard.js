@@ -1,6 +1,5 @@
 function PokemonCard(props) {
     const {pokemons} = props;
-    // console.log(pokemons);
 
   return (
     <div className="Pokedex">

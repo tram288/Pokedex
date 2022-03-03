@@ -1,12 +1,23 @@
 import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom"
 import './App.css';
-import PokemonList from './PokemonList';
+import PokemonList from './Components/PokemonList';
+import PokemonDetails from './Components/PokemonDetails';
 
 function App() {
   return (
     <div className="Pokedex">
       <div className="title">Pokedex</div>
-      <PokemonList />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PokemonList />} />
+          <Route path="pokemon/:id" element={<PokemonDetails />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
