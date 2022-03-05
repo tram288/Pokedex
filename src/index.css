@@ -38,6 +38,9 @@ code {
 .PokeCard {
     margin-bottom: 30px;
 }
+.PokeCard:hover {
+  cursor: pointer;
+}
 
 img {
     background-color: #D3D3D3;
