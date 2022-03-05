@@ -38,7 +38,7 @@ export default function PolarAreaChart(props) {
       <PolarArea data={data}   
       width={500}
       height={500} 
-      options={{responsive: false, maintainAspectRatio: false }}/>;
+      options={{responsive: false, maintainAspectRatio: false }}/>
     </div>
   )
 }
