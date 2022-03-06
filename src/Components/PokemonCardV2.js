@@ -17,17 +17,18 @@ export default class PokemonCardV2 extends React.Component {
         axios.get(url)
             .then(res => {
                 const pokemon = res.data;
-                this.setState({ pokemon: pokemon });
+                this.setState({ pokemon });
             })
     }
 
-    Pad(value, padding) {
-        var zeroes = new Array(padding + 1).join("0");
-        return (zeroes + value).slice(-padding);
+    OpenPokemonDetail = () => {
+        const { pokemon } = this.state;
+        window.location.pathname = `/pokemon/${pokemon.id}`;
     }
 
-    OpenPokemonDetail() {
-        window.location.pathname = `/pokemon/${this.state.pokemon.id}`;
+    Pad = (value, padding) => {
+        const zeroes = new Array(padding + 1).join("0");
+        return (zeroes + value).slice(-padding);
     }
 
     render() {
@@ -36,11 +37,11 @@ export default class PokemonCardV2 extends React.Component {
         const name = _.get(this.props, "pokemon.name", "");
         const picture = _.get(sprites, "other.official-artwork.front_default", "");
         const typeList = _.map(types, type => (<span className='typeItems' key={type.type.name} style={{ backgroundColor: getTypeColor(type.type.name) }}>{type.type.name}</span>));
-
+        const padded = this.Pad(id, 3);
         return (
-            <div onClick={this.OpenPokemonDetail.bind(this)} className="PokeCard">
+            <div onClick={this.OpenPokemonDetail()} className="PokeCard">
                 <img src={picture} alt={name} width="300" height="300" />
-                <div className="idNumber">#{this.Pad(id, 3)}</div>
+                <div className="idNumber">#{padded}</div>
                 <h1 className="pokemonName">{_.capitalize(name)}</h1>
                 <div className='types'>{typeList}</div>
             </div>
