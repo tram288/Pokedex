@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 import {
   Chart as ChartJS,
   RadialLinearScale,
@@ -11,7 +11,6 @@ import { PolarArea } from 'react-chartjs-2';
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 export default function PolarAreaChart(props) {
-
   const { stats } = props;
 
   const data = {
@@ -35,10 +34,12 @@ export default function PolarAreaChart(props) {
 
   return (
     <div>
-      <PolarArea data={data}   
-      width={500}
-      height={500} 
-      options={{responsive: false, maintainAspectRatio: false }}/>;
+      <PolarArea
+        data={data}
+        width={500}
+        height={500}
+        options={{ responsive: false, maintainAspectRatio: false }}
+      />
     </div>
-  )
+  );
 }

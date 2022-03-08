@@ -88,3 +88,9 @@ img {
 .itemsList {
     margin-top: 15px;
 }
+
+.pageButton {
+    height: 30px;
+    width: 30px;
+    border-radius: 25px;
+}
