@@ -16,6 +16,9 @@
     "linebreak-style": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/no-arrow-function-lifecycle": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "react/button-has-type": "off"
   }
 }

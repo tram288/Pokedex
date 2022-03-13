@@ -46,12 +46,12 @@ export default function PokemonDetails() {
 
   const previousPokemonCard = () => {
     if (id > 1) {
-      window.location.pathname = `/pokemon/${parseInt(id) - 1}`;
+      window.location.pathname = `/pokemon/${parseInt(id, 10) - 1}`;
     }
   };
 
   const NextPokemonCard = () => {
-    window.location.pathname = `/pokemon/${parseInt(id) + 1}`;
+    window.location.pathname = `/pokemon/${parseInt(id, 10) + 1}`;
   };
 
   const Pad = (value, padding) => {
