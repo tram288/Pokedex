@@ -4,13 +4,14 @@ import axios from 'axios';
 import _ from 'lodash';
 import { getTypeColor } from '../Utilities/types';
 import PolarAreaChart from '../Utilities/PolarAreaChart';
-// import EvolutionChain from '../Utilities/EvolutionChain';
+import EvolutionChain from '../Utilities/EvolutionChain';
 
 export default function PokemonDetails() {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState({});
+  const [weaknessTypes, setWeaknessTypes] = useState([]);
   const { name, stats, sprites, types, abilities } = pokemon;
-
+  
   const picture = _.get(sprites, 'other.official-artwork.front_default', '');
   const statsData = _.map(stats, (stat) => stat.base_stat);
 
@@ -23,6 +24,16 @@ export default function PokemonDetails() {
       {type.type.name}
     </span>
   ));
+
+  const weaknessTypesArr = _.map(weaknessTypes, type => (
+    <span
+    className="typeItems"
+    key={type.name}
+    style={{ backgroundColor: getTypeColor(type.name) }}
+  >
+    {type.name}
+  </span>
+  ))
 
   const abilityList = _.map(abilities, (ability) => (
     <span
@@ -44,14 +55,25 @@ export default function PokemonDetails() {
     fetchData();
   }, [id]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const responses = await Promise.all(_.map(types, type => axios.get(`https://pokeapi.co/api/v2/type/${type.type.name}`)));
+      const weaknesses = _.map(responses, response => response.data.damage_relations.double_damage_from);
+      const flattend = _.flatten(weaknesses);
+      const unique = _.uniqBy(flattend, 'name');
+      setWeaknessTypes(unique);
+    }
+    fetchData();
+  }, [types])
+
   const previousPokemonCard = () => {
     if (id > 1) {
-      window.location.pathname = `/pokemon/${parseInt(id) - 1}`;
+      window.location.pathname = `/pokemon/${parseInt(id, 10) - 1}`;
     }
   };
 
   const NextPokemonCard = () => {
-    window.location.pathname = `/pokemon/${parseInt(id) + 1}`;
+    window.location.pathname = `/pokemon/${parseInt(id, 10) + 1}`;
   };
 
   const Pad = (value, padding) => {
@@ -71,6 +93,7 @@ export default function PokemonDetails() {
         <img src={picture} alt={name} width="300" height="300" />
         <div className="itemsList">Type: {typeList}</div>
         <div className="itemsList">Abilities: {abilityList}</div>
+        <div className="itemsList">Weaknesses: {weaknessTypesArr}</div>
       </div>
       <div>
         <PolarAreaChart stats={statsData} />
@@ -79,8 +102,8 @@ export default function PokemonDetails() {
         {'>'}
       </button>
 
-      {/* <div><img src={picture} alt={name} width="150" height="150" /></div>
-      <EvolutionChain name={name}/> */}
+      {/* <div><img src={picture} alt={name} width="150" height="150" /></div> */}
+      <EvolutionChain name={name}/>
     </div>
   );
 }
