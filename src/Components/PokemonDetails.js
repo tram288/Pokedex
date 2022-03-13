@@ -4,7 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { getTypeColor } from '../Utilities/types';
 import PolarAreaChart from '../Utilities/PolarAreaChart';
-import EvolutionChain from '../Utilities/EvolutionChain';
+// import EvolutionChain from '../Utilities/EvolutionChain';
 
 export default function PokemonDetails() {
   const { id } = useParams();
@@ -62,7 +62,9 @@ export default function PokemonDetails() {
   return (
     <div className="pokemonDetail">
       <div>
-        <button className="pageButton" onClick={previousPokemonCard}>{'<'}</button>
+        <button className="pageButton" onClick={previousPokemonCard}>
+          {'<'}
+        </button>
         <h1 className="pokemonName">
           {_.capitalize(name)} #{Pad(id, 3)}
         </h1>
@@ -73,9 +75,12 @@ export default function PokemonDetails() {
       <div>
         <PolarAreaChart stats={statsData} />
       </div>
-      <button className="pageButton" onClick={NextPokemonCard}>{'>'}</button>
-      <div><img src={picture} alt={name} width="150" height="150" /></div>
-      {/* <EvolutionChain name={name}/> */}
+      <button className="pageButton" onClick={NextPokemonCard}>
+        {'>'}
+      </button>
+
+      {/* <div><img src={picture} alt={name} width="150" height="150" /></div>
+      <EvolutionChain name={name}/> */}
     </div>
   );
 }

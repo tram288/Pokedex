@@ -23,19 +23,17 @@
 //       const { data } = await axios.get(
 //         `${evolution_chain}`
 //       );
-//       console.log(data);
 //       setEvolutionList(data);
 //     }
 //     fetchData();
 //   }, [evolution_chain]);
 
-// console.log(speciesList);
-// console.log(evolution_chain);
-// console.log(evolutionList);
+// const baby = _.get(evolutionList, 'chain.species.name', '');
+// console.log(baby);
 
 // return (
 //     <div className="evolutionChain">
-
+//         {baby}
 //     </div>
 //   );
-// }
+// } 
