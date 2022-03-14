@@ -9,6 +9,7 @@ import PolarAreaChart from '../Utilities/PolarAreaChart';
 export default function PokemonDetails() {
   const { id } = useParams();
   const [pokemon, setPokemon] = useState({});
+  const [pokemonWeaknesses, setPokemonWeaknesses] = useState({});
   const { name, stats, sprites, types, abilities } = pokemon;
 
   const picture = _.get(sprites, 'other.official-artwork.front_default', '');
@@ -21,6 +22,16 @@ export default function PokemonDetails() {
       style={{ backgroundColor: getTypeColor(type.type.name) }}
     >
       {type.type.name}
+    </span>
+  ));
+
+  const weaknessList = _.map(pokemonWeaknesses, (pokemonWeakness) => (
+    <span
+      className="typeItems"
+      key={pokemonWeakness.name}
+      style={{ backgroundColor: getTypeColor(pokemonWeakness.name) }}
+    >
+      {pokemonWeakness.name}
     </span>
   ));
 
@@ -43,6 +54,18 @@ export default function PokemonDetails() {
     }
     fetchData();
   }, [id]);
+  
+  useEffect(()=>{
+    async function fetchData() {
+      const responses = await Promise.all(_.map(types, type => axios.get(`https://pokeapi.co/api/v2/type/${type.type.name}`)));
+      const weaknesses = _.map(responses, response => response.data.damage_relations.double_damage_from);
+      const flatten = _.flattenDeep(weaknesses);
+      const unique = _.uniqBy(flatten, 'name');
+      console.log(unique);
+      setPokemonWeaknesses(unique);
+    }
+    fetchData();
+  }, [types]);
 
   const previousPokemonCard = () => {
     if (id > 1) {
@@ -70,6 +93,7 @@ export default function PokemonDetails() {
         </h1>
         <img src={picture} alt={name} width="300" height="300" />
         <div className="itemsList">Type: {typeList}</div>
+        <div className="itemsList">Weakness: {weaknessList}</div>
         <div className="itemsList">Abilities: {abilityList}</div>
       </div>
       <div>
