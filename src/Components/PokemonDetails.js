@@ -4,7 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { getTypeColor } from '../Utilities/types';
 import PolarAreaChart from '../Utilities/PolarAreaChart';
-// import EvolutionChain from '../Utilities/EvolutionChain';
+import EvolutionChain from '../Utilities/EvolutionChain';
 
 export default function PokemonDetails() {
   const { id } = useParams();
@@ -61,7 +61,6 @@ export default function PokemonDetails() {
       const weaknesses = _.map(responses, response => response.data.damage_relations.double_damage_from);
       const flatten = _.flattenDeep(weaknesses);
       const unique = _.uniqBy(flatten, 'name');
-      console.log(unique);
       setPokemonWeaknesses(unique);
     }
     fetchData();
@@ -103,8 +102,7 @@ export default function PokemonDetails() {
         {'>'}
       </button>
 
-      {/* <div><img src={picture} alt={name} width="150" height="150" /></div>
-      <EvolutionChain name={name}/> */}
+      <EvolutionChain name={name}/>
     </div>
   );
 }
