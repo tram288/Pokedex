@@ -33,7 +33,7 @@ export default function PolarAreaChart(props) {
   };
 
   return (
-    <div>
+    <div className='PolarAreaChart'>
       <PolarArea
         data={data}
         width={500}

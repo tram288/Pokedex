@@ -11,7 +11,6 @@ export default function PokemonDetails() {
   const [pokemon, setPokemon] = useState({});
   const [pokemonWeaknesses, setPokemonWeaknesses] = useState({});
   const { name, stats, sprites, types, abilities } = pokemon;
-
   const picture = _.get(sprites, 'other.official-artwork.front_default', '');
   const statsData = _.map(stats, (stat) => stat.base_stat);
 
@@ -85,7 +84,7 @@ export default function PokemonDetails() {
     <div className="pokemonDetail">
       <div>
         <button className="pageButton" onClick={previousPokemonCard}>
-          {'<'}
+          {`<`}
         </button>
         <h1 className="pokemonName">
           {_.capitalize(name)} #{Pad(id, 3)}
@@ -97,6 +96,7 @@ export default function PokemonDetails() {
       </div>
       <div>
         <PolarAreaChart stats={statsData} />
+
       </div>
       <button className="pageButton" onClick={NextPokemonCard}>
         {'>'}

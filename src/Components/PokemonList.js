@@ -7,7 +7,8 @@ export default class PokemonList extends React.Component {
   constructor(prop) {
     super(prop);
     this.state = {
-      pokemons: {},
+      pokemons: [],
+      offset: 0,
     };
   }
 
@@ -15,6 +16,15 @@ export default class PokemonList extends React.Component {
     await axios.get('https://pokeapi.co/api/v2/pokemon').then((res) => {
       const pokemons = res.data.results;
       this.setState({ pokemons });
+    });
+  };
+
+  loadMorePokemon = async () => {
+    const { offset, pokemons } = this.state;
+    await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset + 20}`).then((res) => {
+      const newPokemons = res.data.results;
+      this.setState({ pokemons: [...pokemons, ...newPokemons]});
+      this.setState({ offset: offset + 20 });
     });
   };
 
@@ -30,6 +40,7 @@ export default class PokemonList extends React.Component {
             <PokemonCardV2 key={pokemon.name} pokemon={pokemon} />
           ))}
         </div>
+        <button className="loadMore" onClick={() => this.loadMorePokemon()}>Load More</button>
       </div>
     );
   }

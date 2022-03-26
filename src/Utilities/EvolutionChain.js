@@ -42,7 +42,6 @@ export default function EvolutionChain(props) {
       const { data } = await axios.get(`${evolutionChainUrl}`);
       const chain = _.get(data, 'chain', {});
       const evolutionChain = getEvolutionChain(chain);
-      // Why does it only take one parameter?
       const flattend = _.flatten(evolutionChain);
       const responses = await Promise.all(_.map(flattend, species => axios.get(`https://pokeapi.co/api/v2/pokemon/${species.name}`)));
       const pokemonSprites = _.map(responses, response => _.get(response, 'data.sprites.other.official-artwork.front_default', {}));
@@ -59,7 +58,6 @@ return (
   );
 } 
 
-// What is this?
 EvolutionChain.propTypes = {
   name: propTypes.string.isRequired,
 };
